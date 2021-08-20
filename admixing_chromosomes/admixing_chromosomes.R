@@ -36,7 +36,12 @@ output %>%
   mutate("chromosome" = rep(1, 1000)) %>%
   ggplot(aes(chromosome, position, fill = type)) +
   geom_tile()
+######################################################
 
+
+
+
+## Aqui embaixo são minhas tentativas de fazer diploide, preciso pensar ainda
 ##############################
 ## EXAMPLE -- 
 filter(df, type %in% ancestry_choice)
