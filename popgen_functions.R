@@ -596,9 +596,33 @@ selection_sim <- function(gen = 100, fA = 0.5, s, type){
   
 }
 
-selection_sim(gen = 100, fA = 0.1, s = 0.1, type = "recessive")
+selection_sim(gen = 100, fA = 0.01, s = 0.1, type = "advantage of heterozygous")
 
 ################################################################################
 # Interaction between Selection and Drift
+
+
+################################################################################
+# HWE graph
+p <- seq(from = 0, to = 1, by = 0.05)
+
+tibble(freq_p = seq(from = 0, to = 1, by = 0.05),
+       freq_q = 1 - freq_p,
+       p2 = freq_p^2,
+       two_pq = 2*freq_p*freq_q,
+       q2 = freq_q^2) |>
+  pivot_longer(c(p2, two_pq, q2),
+               names_to = "geno",
+               values_to = "geno_freq") |>
+  ggplot(aes(freq_p, geno_freq)) +
+  geom_line(aes(group = geno, color = geno),
+            size = 1.5) +
+  geom_vline(xintercept = 0.15, linetype = "dashed") +
+  labs(x = "Frequency of Allele P",
+       y = "Genotype Frequencies") +
+  scale_color_discrete(name = "Genotypes: ",
+                       labels=c("Homozygous p", "Heterozygous", "Homozygous q")) +
+  theme_bw()
+
 
 
